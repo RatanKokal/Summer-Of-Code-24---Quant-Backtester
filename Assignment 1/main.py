@@ -30,7 +30,10 @@ parser.add_argument('-s', '--symbol',
 
 args = parser.parse_args()
 
-df = download_historical_data(args.symbol, args.start_date, args.end_date, args.timeframe)
-
-plot_performance(df, args.symbol, args.start_date, args.end_date, args.timeframe)
+try:
+    yf.Ticker(args.symbol)
+    df = download_historical_data(args.symbol, args.start_date, args.end_date, args.timeframe)
+    plot_performance(df, args.symbol, args.start_date, args.end_date, args.timeframe)
+except Exception as e:
+    print(f'No data found for {args.symbol} from {args.start_date} to {args.end_date} with interval {args.timeframe}')
 
