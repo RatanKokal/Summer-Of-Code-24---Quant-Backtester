@@ -1,8 +1,9 @@
 from argparse import ArgumentParser
 from data_fetch import download_historical_data
 from perfomance import plot_performance
-from datetime import date
+from datetime import date, datetime
 import pandas as pd
+import yfinance as yf
 
 today = date.today().strftime('%Y-%m-%d')
 
@@ -29,9 +30,12 @@ parser.add_argument('-s', '--symbol',
                     default='RELIANCE.NS')
 
 args = parser.parse_args()
+start_date = datetime.strptime(args.start_date, '%Y-%m-%d')
+end_date = datetime.strptime(args.end_date, '%Y-%m-%d')
+date_diff = (end_date - start_date).days
 
 try:
-    yf.Ticker(args.symbol)
+    assert(yf.Ticker(args.symbol).history(period='1d').empty == False and date_diff > args.timeframe)
     df = download_historical_data(args.symbol, args.start_date, args.end_date, args.timeframe)
     plot_performance(df, args.symbol, args.start_date, args.end_date, args.timeframe)
 except Exception as e:
