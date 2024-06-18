@@ -30,12 +30,18 @@ parser.add_argument('-s', '--symbol',
                     default='RELIANCE.NS')
 
 args = parser.parse_args()
-start_date = datetime.strptime(args.start_date, '%Y-%m-%d')
-end_date = datetime.strptime(args.end_date, '%Y-%m-%d')
-date_diff = (end_date - start_date).days
 
+# Check if the timeframe is valid
+allowed_timeframes = ['1m', '2m', '5m', '15m', '30m', '60m', '90m', '1h', '1d', '5d', '1wk', '1mo', '3mo']
+try :
+    assert(args.timeframe in allowed_timeframes)
+except AssertionError:
+    print(f'Invalid timeframe {args.timeframe}. Allowed timeframes are {allowed_timeframes}')
+    exit(1)
+
+# Check if data is available for the given symbol
 try:
-    assert(yf.Ticker(args.symbol).history(period='1d').empty == False and date_diff > args.timeframe)
+    assert(yf.Ticker(args.symbol).history(period='1d').empty == False)
     df = download_historical_data(args.symbol, args.start_date, args.end_date, args.timeframe)
     plot_performance(df, args.symbol, args.start_date, args.end_date, args.timeframe)
 except Exception as e:
