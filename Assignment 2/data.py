@@ -26,7 +26,10 @@ class StockAnalyzer:
     def handle_missing_data(self):
         if self.data is not None:
             imputer = IterativeImputer()
+            missing = self.data.loc[:, self.data.isnull().sum() > 0].iloc[:, 0]
             self.data = imputer.fit_transform(self.data)
+            return missing
+        return None
 
     def plot_performance(self):
         if self.data is not None:
@@ -59,7 +62,7 @@ def plot_cummulative_return(symbol, start_date, end_date, interval):
 
     stock_cummulative_return.plot()
     nifty_cummulative_return.plot()
-    
+
     plt.xlabel('Date')
     plt.ylabel('Cummulative Return')
     plt.xticks(rotation=45)
