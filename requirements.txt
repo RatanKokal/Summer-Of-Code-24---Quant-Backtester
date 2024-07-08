@@ -1,6 +1,6 @@
 Flask
 Gunicorn
-skicit-learn
+scikit-learn
 matplotlib
 yfinance
 numpy
