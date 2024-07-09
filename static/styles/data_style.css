@@ -19,6 +19,7 @@ h1.page-title {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: scroll;
 }
 
 table {
@@ -51,4 +52,28 @@ tr:hover {
     table {
         font-size: 14px; 
     }
+}
+
+#myCanvas {
+    width: 100%; /* Make canvas width 100% of its container */
+    height: auto; /* Allow canvas height to adjust proportionally */
+    border: 1px solid #ccc; /* Optional border for visualization */
+    display: block; /* Ensure canvas behaves as a block element */
+    margin: 20px auto; /* Center the canvas */
+}
+
+button {
+    width: auto; /* Allow button to adjust width based on content */
+    float: right; /* Float button to the right */
+    padding: 6px;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #333;
 }
