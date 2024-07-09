@@ -24,8 +24,6 @@ def data():
     stock = StockAnalyzer(ticker, start_date, end_date, interval)
     nifty = StockAnalyzer('^NSEI', start_date, end_date, interval)
 
-    print(stock.is_data_available())
-
     if stock.is_data_available():
         stock.download_data()
         nifty.download_data()
@@ -56,7 +54,7 @@ def data():
 
         json_data = json.dumps(data)
 
-        return render_template('data.html', columns=columns, rows=rows, missing_stock_data=missing_stock_data, stock_data=stock.data.round(2), json_data=json_data)   
+        return render_template('data.html', stock_name=ticker, columns=columns, rows=rows, missing_stock_data=missing_stock_data, stock_data=stock.data.round(2), json_data=json_data)   
 
     return render_template('error.html')    
         
