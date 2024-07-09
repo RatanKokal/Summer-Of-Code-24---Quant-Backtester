@@ -13,7 +13,6 @@ def home():
 @app.route('/data')
 def data():
     ticker = request.args.get('symbol')
-    print(ticker)
     start_date = request.args.get('start-date')
     end_date = request.args.get('end-date')
     interval = request.args.get('interval')
@@ -43,7 +42,7 @@ def data():
             labels = stock.data[stock.data.columns[0]].apply(lambda x: x.strftime('%Y-%m-%d'))
             labels = labels.tolist()
         else:
-            labels = stock.data[stock.data.columns[0]].apply(lambda x: x.strftime('%Y-%m-%d %H:%M'))
+            labels = stock.data[stock.data.columns[0]]
             labels = labels.tolist()
 
         data = {
