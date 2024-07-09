@@ -17,13 +17,13 @@ document.addEventListener('DOMContentLoaded', function() {
             data: {
                 labels: labels,  // X-axis labels (datetime)
                 datasets: [{
-                    label: 'Stock Cumulative Returns',  // Dataset label
+                    label: ticker,  // Dataset label
                     data: stock_cummulative_returns,  // Data points for the chart (cumulative returns)
                     borderColor: 'blue',  // Line color
                     backgroundColor: 'transparent'  // No fill color
                 },
                 {
-                    label: 'Nifty Cumulative Returns',  // Dataset label
+                    label: 'NIFTY50',  // Dataset label
                     data: nifty_cummulative_returns,  // Data points for the chart (cumulative returns)
                     borderColor: 'red',  // Line color
                     backgroundColor: 'transparent'  // No fill color
@@ -46,6 +46,20 @@ document.addEventListener('DOMContentLoaded', function() {
                             enabled: true,
                         },
                     }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date(time)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Cummulative Returns'
+                        }
+                    }
                 }
             }
         });
@@ -64,4 +78,21 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('resetZoomBtn').addEventListener('click', function() {
         myChart.resetZoom();
     });
+
+    function openFullscreen(elem) {
+        if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+            document.exitFullscreen();
+        } else if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+          elem.msRequestFullscreen();
+        }
+    }
+
+    document.getElementById('fullScreenBtn').addEventListener('click', function() {
+        openFullscreen(document.getElementsByClassName('container')[1]);
+    });
+
 });
