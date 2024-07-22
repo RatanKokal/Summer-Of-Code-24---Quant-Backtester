@@ -50,9 +50,9 @@ class TradingExecution:
             last_close_price = self.df['Close'].iloc[-1]
             returns.iloc[-1] = (last_close_price - entry_price) / entry_price
 
-        returns.cumsum().to_csv('returns.csv')
+        (1 + returns).cumprod().to_csv('returns.csv')
         self.df.to_csv('strategy.csv')
-        plt.plot(returns.cumsum())
+        plt.plot((1 + returns).cumprod() - 1)
         plt.xlabel('Date')
         plt.ylabel('Returns')
         plt.title('Returns from Trading Strategy')
@@ -64,7 +64,7 @@ class TradingExecution:
 from data import StockAnalyzer
 
 if __name__ == '__main__':
-    ticker = 'RELIANCE.NS'
+    ticker = 'AAPL'
     start_date = '2010-06-30'
     end_date = '2024-06-30'
     interval = '1d'
